@@ -42,10 +42,29 @@ class puppet::profile::puppetboard (
   $puppetdb_host     = 'localhost',
   $git_source        = 'https://github.com/puppet-community/puppetboard/',
   $manage_virtualenv = true,
+  $wsgi_python3      = false,
 ) {
   include ::apache
 
-  class { '::apache::mod::wsgi':
+  if($wsgi_python3) {
+    if ($facts['os']['family'] == 'RedHat') {
+      # use python3 apache wsgi configuration (from mod_wsgi-express-3 install-module)
+      class { '::apache::mod::wsgi':
+        package_name      => 'python3-mod_wsgi',
+        mod_path          => '/usr/lib64/httpd/modules/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so',
+        wsgi_python_home  => '/usr',
+      }
+    } else
+    {
+      notify { 'wsgi_python3 feature has not been implemented on this operating system':
+        loglevel => warning,
+      }
+    }
+  }
+  else {
+    # use default apache wsgi configuration
+    class { '::apache::mod::wsgi':
+    }
   }
 
   class { '::puppetboard':
