@@ -43,10 +43,6 @@ class puppet::profile::puppetboard (
   $git_source        = 'https://github.com/puppet-community/puppetboard/',
   $manage_virtualenv = true,
 ) {
-  include ::apache
-
-  class { '::apache::mod::wsgi':
-  }
 
   class { '::puppetboard':
     reports_count     => $reports_count,
