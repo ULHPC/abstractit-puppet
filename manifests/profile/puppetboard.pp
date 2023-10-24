@@ -56,6 +56,7 @@ class puppet::profile::puppetboard (
     puppetdb_port     => $puppetdb_port,
     puppetdb_host     => $puppetdb_host,
     manage_virtualenv => $manage_virtualenv,
+    secret_key        => fqdn_rand_string(32),
   }
 
   if($ssl){
