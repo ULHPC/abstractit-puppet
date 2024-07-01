@@ -13,7 +13,7 @@ class puppet::facts (
   $facterbasepath = $::puppet::defaults::facterbasepath
 
   if $custom_facts {
-    validate_hash($custom_facts)
+    validate_legacy(Hash, 'validate_hash', $custom_facts)
   }
 
   file { "${facterbasepath}/facts.d/local.yaml":

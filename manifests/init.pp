@@ -137,7 +137,9 @@ class puppet (
   $pluginfactsource               = undef,
 ) {
   #input validation
-  validate_bool(
+  validate_legacy(
+    Boolean,
+    'validate_boolean',
     $allinone,
     $cfacter,
     $enable_devel_repo,
@@ -152,7 +154,9 @@ class puppet (
     $structured_facts,
   )
 
-  validate_string(
+  validate_legacy(
+    String,
+    'validate_string',
     $agent_version,
     $ca_server,
     $ca_port,
@@ -168,13 +172,13 @@ class puppet (
     $runinterval,
   )
   $manage_repo_types = ['files','package']
-  validate_re($manage_repo_method,$manage_repo_types)
+  validate_legacy(String, 'validate_re', $manage_repo_method,$manage_repo_types)
 
   $serialization_formats = ['pson','msgpack']
-  validate_re($preferred_serialization_format,$serialization_formats)
+  validate_legacy(String, 'validate_re', $preferred_serialization_format,$serialization_formats)
 
   $supported_mechanisms = ['service', 'cron']
-  validate_re($enable_mechanism, $supported_mechanisms)
+  validate_legacy(String, 'validate_re', $enable_mechanism, $supported_mechanisms)
 
   include ::puppet::defaults
   $facterbasepath = $::puppet::defaults::facterbasepath

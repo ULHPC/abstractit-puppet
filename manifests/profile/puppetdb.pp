@@ -48,10 +48,14 @@ class puppet::profile::puppetdb (
   $puppet_server_type          = undef,
 ) {
   # input validation
-  validate_bool(
+  validate_legacy(
+    Boolean,
+    'validate_bool',
     $use_ssl
   )
-  validate_string(
+  validate_legacy(
+    String,
+    'validate_string',
     $puppetdb_version,
     $node_purge_ttl,
     $node_ttl,
@@ -59,11 +63,11 @@ class puppet::profile::puppetdb (
     $puppetdb_ssl_listen_address,
     $report_ttl,
   )
-  validate_integer(
-    [
-      $listen_port,
-      $ssl_listen_port,
-    ]
+  validate_legacy(
+    Integer,
+    'validate_integer',
+    $listen_port,
+    $ssl_listen_port,
   )
 
   # add deprecation warnings

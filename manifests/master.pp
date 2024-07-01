@@ -135,26 +135,37 @@ class puppet::master (
 ) inherits ::puppet::defaults {
 
   #input validation
-  validate_absolute_path(
+  validate_legacy(
+    Stdlib::Absolutepath,
+    'validate_absolute_path',
     $environmentpath,
     $hieradata_path,
   )
-  validate_array(
+
+  validate_legacy(
+    Array,
+    'validate_array',
     $hiera_hierarchy,
   )
 
-  validate_bool(
+  validate_legacy(
+    Boolean,
+    'validate_boolean',
     $autosign,
     $eyaml_keys,
     $future_parser,
     $manage_hiera_config,
   )
 
-  validate_hash(
+  validate_legacy(
+    Hash,
+    'validate_hash',
     $hiera_backends
   )
 
-  validate_string(
+  validate_legacy(
+    String,
+    'validate_string',
     $env_owner,
     $environment_timeout,
     $hiera_eyaml_version,
