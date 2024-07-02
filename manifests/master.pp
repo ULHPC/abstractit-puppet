@@ -202,7 +202,7 @@ class puppet::master (
 
   # check autosign methods
   $autosign_methods = ['off','on','file']
-  validate_re($autosign_method,$autosign_methods)
+  validate_legacy(String, 'validate_re', $autosign_method, $autosign_methods)
 
   # set autosign_method_interpolated to on if autosign is true
   if $autosign == true {
@@ -212,7 +212,7 @@ class puppet::master (
   # check merge_behavior for hiera
   if $hiera_merge_behavior {
     $hiera_merge_behaviors = ['native', 'deep', 'deeper']
-    validate_re($hiera_merge_behavior,$hiera_merge_behaviors)
+    validate_legacy(String, 'validate_re', $hiera_merge_behavior, $hiera_merge_behaviors)
   }
 
   include ::puppet::master::install
